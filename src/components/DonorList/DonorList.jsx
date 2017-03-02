@@ -18,7 +18,9 @@ class DonorList extends Component {
 
   listDonors(){
     console.log("list donors");
-    var listItems = this.props.donorList.map(donor=> {
+    var listItems = this.props.donorList.
+      filter((donor=>donor.uid!==this.props.authUser.uid)).
+      map(donor=> {
       console.log("Donor item ",donor);
       return (<div key={donor.uid}>
                 <MUI.ListItem                    

@@ -59,7 +59,7 @@ class RegisterDonor extends Component {
         fullName:this.props.authUser.fullName,
         address:this.props.authUser.address,
         contactNo:this.props.authUser.contactNo,
-        dateOfBirth:new Date(this.props.authUser.dateOfBirth),
+        dateOfBirth:this.props.authUser.dateOfBirth?new Date(this.props.authUser.dateOfBirth):new Date(),
       })
   }
 

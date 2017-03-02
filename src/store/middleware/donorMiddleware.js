@@ -36,11 +36,13 @@ export default class DonorMiddleware {
     }
 
     static getDonorListFromFirebase(dispatch,bloodGroup){
-        firebase.database().ref('/')
-            .child("users")
-            .on("child_added",function (snapshot){
-                dispatch(DonorActions.addDonorToList(snapshot.val()))
-            });
+        //playersRef.orderByChild("name").equalTo("John")
+        const donorListRef = firebase.database().ref('/')
+                            .child("users")
+                            .orderByChild("isDonor").equalTo(true);
+        donorListRef.on("child_added",function (snapshot){
+                        dispatch(DonorActions.addDonorToList(snapshot.val()))
+                    })
     }
 
     //Get Donor Detail
