@@ -9,13 +9,13 @@ import { AuthMiddleware } from '../../store'
 
 function mapStateToProps(state) {
     return {
-        isAuthenticated: state.AuthReducer.isAuthenticated,
+        isRegistered: state.AuthReducer.isRegistered,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        signup: (credentials) => dispatch(AuthMiddleware.singup(credentials))
+        signup: (credentials) => dispatch(AuthMiddleware.signup(credentials))
     };
 }
 
@@ -29,19 +29,25 @@ class Signup extends Component {
     this.handelSignup = this.handelSignup.bind(this);
   }
   handelSignup() {
-    this.props.signup({"name":"zeeshan"})
+    this.props.signup(
+      {
+        "email":this.refs.email.getValue(),
+        "password":this.refs.password.getValue(),
+        "fullName":this.refs.fullName.getValue()
+      })
     console.log("Hello world");
+  }
+
+  componentWillReceiveProps(nextProps){
+    setTimeout(()=> {
+      if(this.props.isRegistered){
+        console.log("isRegistered true in signup");
+        this.context.router.push("/login");
+      }
+    },0);
   }
   
   render() {
-    if(this.props.isAuthenticated){
-      console.log("Authenticated true in signup");
-      setTimeout(()=> {
-        this.context.router.push("/dashboard");
-      },0);
-      return null;
-    }
-    else {
       console.log("Authenticated FALSE in signup");    
       return (
         <MuiThemeProvider muiTheme={AppTheme}>          
@@ -50,16 +56,19 @@ class Signup extends Component {
             <MUI.Paper className="signup-paper">
               <form>
                 <MUI.TextField
+                    ref="fullName"
                     hintText="Full Name"
                     floatingLabelText="Full Name"
                     fullWidth={true}
                   />
                 <MUI.TextField
+                  ref="email"
                   hintText="E-mail"
                   floatingLabelText="E-mail"
                   fullWidth={true}
                 />
                 <MUI.TextField
+                  ref="password"
                   hintText="Password"
                   floatingLabelText="Password"
                   fullWidth={true}
@@ -87,10 +96,8 @@ class Signup extends Component {
             
           </div>
         </div>
-        </MuiThemeProvider>  
-        
+        </MuiThemeProvider>
       );
-    }
   }
 }
 

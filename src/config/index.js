@@ -2,10 +2,11 @@
 import * as firebase from 'firebase'
 
 // adding firebase configuration
-var firebaseConfig = {
-    apiKey: "<API_KEY>",
-    authDomain: "<PROJECT_ID>.firebaseapp.com",
-    databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
-}
-
-firebase.initializeApp(firebaseConfig);
+var config = {
+    apiKey: "AIzaSyBd3BiGorQDkk4i2Y8f3nAcqomp0ikiUNk",
+    authDomain: "blood-bank-system-ecabb.firebaseapp.com",
+    databaseURL: "https://blood-bank-system-ecabb.firebaseio.com",
+    storageBucket: "blood-bank-system-ecabb.appspot.com",
+    messagingSenderId: "539807996340"
+};
+firebase.initializeApp(config);

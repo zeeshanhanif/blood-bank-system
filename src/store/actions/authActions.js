@@ -1,30 +1,37 @@
 export default class AuthActions {
 
     static SIGNUP = 'SIGNUP';
-    static SIGNUP_SUCCESSFULL = 'SIGNUP_SUCCESSFULL';
+    static SIGNUP_SUCCESSFUL = 'SIGNUP_SUCCESSFUL';
     static SIGNUP_REJECTED = 'SIGNUP_REJECTED';
 
     static SIGNIN = 'SIGNIN';
-    static SIGNIN_SUCCESSFULL = 'SIGNIN_SUCCESSFULL';
+    static SIGNIN_SUCCESSFUL = 'SIGNIN_SUCCESSFUL';
     static SIGNIN_REJECTED = 'SIGNIN_REJECTED';
 
+    static LOGOUT = 'LOGOUT';
+    static LOGOUT_SUCCESSFUL = 'LOGOUT_SUCCESSFUL';
+
+    static ISLOGGEDIN = 'ISLOGGEDIN';
+
+    //static NULL = 'NULL';
     
-    static singup() {
+    static signup() {
         return {
             type: AuthActions.SIGNUP
         }
     }
 
-    static singupSuccessfull(authUser) {
+    static signupupSuccessful(authUser) {
         return {
-            type: AuthActions.SIGNUP_SUCCESSFULL,
+            type: AuthActions.SIGNUP_SUCCESSFUL,
             payload: authUser
         }
     }
 
-    static singupRejected() {
+    static signupRejected(error) {
         return {
-            type: AuthActions.SIGNUP_REJECTED
+            type: AuthActions.SIGNUP_REJECTED,
+            payload: error
         }
     }
 
@@ -35,16 +42,36 @@ export default class AuthActions {
         }
     }
 
-    static signinSuccessfull(authUser) {
+    static signinSuccessful(authUser) {
         return {
-            type: AuthActions.SIGNIN_SUCCESSFULL,
+            type: AuthActions.SIGNIN_SUCCESSFUL,
             payload: authUser
         }
     }
 
-    static signinRejected() {
+    static signinRejected(error) {
         return {
-            type: AuthActions.SIGNIN_REJECTED
+            type: AuthActions.SIGNIN_REJECTED,
+            payload: error
+        }
+    }
+
+    static logout() {
+        return {
+            type: AuthActions.LOGOUT
+        }
+    }
+
+    static logoutSuccessful() {
+        return {
+            type: AuthActions.LOGOUT_SUCCESSFUL
+        }
+    }
+
+    static isLoggedIn(user) {
+        return {
+            type: AuthActions.ISLOGGEDIN,
+            payload: user
         }
     }
 }

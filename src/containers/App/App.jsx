@@ -5,21 +5,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppTheme from '../../app-theme';
 import Navigation from '../Navigation/Navigation'
 import { connect } from 'react-redux';
-
-import AuthActions from '../../store/actions/authActions'
+import { AuthMiddleware } from '../../store'
 
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.AuthReducer.isAuthenticated,
     };
 }
-/*
+
 function mapDispatchToProps(dispatch) {
     return {
-        fetchMovie: (id) => dispatch(MovieActions.fetchMovie(id))
+        isLoggedIn: () => dispatch(AuthMiddleware.isLoggedIn())
     };
 }
-*/
+
 
 class App extends Component {
 
@@ -28,13 +27,17 @@ class App extends Component {
   }
   constructor(){
     super();
-    
+    setTimeout(() => {
+        this.props.isLoggedIn()
+    }, 5);
+
     this.state = {
       drawerOpen : false
     }
   }
 
   componentWillMount() {
+    
     if(this.props.isAuthenticated){
       console.log("Authenticated");
     }
@@ -64,6 +67,7 @@ class App extends Component {
         //paddingLeft: drawerOpen ? paddingLeftDrawerOpen : 0
       }
     };
+    
 
     return (
       <MuiThemeProvider muiTheme={AppTheme}>
@@ -80,5 +84,4 @@ class App extends Component {
 }
 
 //export default App;
-//export default connect(mapStateToProps,mapDispatchToProps)(App)
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps,mapDispatchToProps)(App)

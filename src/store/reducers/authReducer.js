@@ -2,37 +2,33 @@ import AuthActions from "./../actions/authActions";
 
 const INITIAL_STATE = {
     authUser: {},
-    isLoadding: false,
-    isAuthenticated : false
+    isAuthenticated : false,
+    isProcessing : false,
+    isRegistered : false,
+    isError : false,
+    errorMessage: {}
 }
 
 function AuthReducer(state = INITIAL_STATE, action) {
-    var obj1 = null;
     switch(action.type) {        
         case AuthActions.SIGNUP:
-            return {...state, isAuthenticated:true};
-            //obj1 = Object.assign({}, state);
-            //return obj1;
-            /*
-            return {
-                ...state,
-                all: action.data
-            }*/
-        case AuthActions.SIGNUP_SUCCESSFULL:
-            obj1 = Object.assign({}, state);
-            return obj1;
+            return {...state, isProcessing: true, isRegistered: false,isError : false};
+        case AuthActions.SIGNUP_SUCCESSFUL:
+            return {...state, isProcessing: false, isRegistered: true,isError : false, errorMessage: {}};            
         case AuthActions.SIGNUP_REJECTED:
-            obj1 = Object.assign({}, state);
-            return obj1;            
+            return {...state, isProcessing: false, isRegistered: false,isError : true, errorMessage: action.payload};         
         case AuthActions.SIGNIN:
-            obj1 = Object.assign({}, state);
-            return obj1;
-        case AuthActions.SIGNIN_SUCCESSFULL:
-            obj1 = Object.assign({}, state);
-            return obj1;
+            return {...state, isProcessing: true, isAuthenticated: false, isError : false};
+        case AuthActions.SIGNIN_SUCCESSFUL:
+            return {...state, isProcessing: false, isAuthenticated: true, isError : false, authUser: action.payload ,  errorMessage: {}};
         case AuthActions.SIGNIN_REJECTED:
-            obj1 = Object.assign({}, state);
-            return obj1;
+            return {...state, isProcessing: false, isAuthenticated: false,authUser:{}, isError : true, errorMessage: action.payload};
+        case AuthActions.LOGOUT:
+            return {...state, isProcessing: true};
+        case AuthActions.LOGOUT_SUCCESSFUL:
+            return {...state, isProcessing: false, isAuthenticated: false,authUser:{}};
+        case AuthActions.ISLOGGEDIN:
+            return {...state, isProcessing: false, isAuthenticated: true,authUser:action.payload};
         default:
             return state;
     }

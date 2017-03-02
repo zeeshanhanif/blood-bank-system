@@ -2,15 +2,43 @@ import React, { Component , PropTypes} from 'react';
 import './Navigation.css';
 import * as MUI from 'material-ui'
 import {Link} from 'react-router';
+import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Assessment from 'material-ui/svg-icons/action/assessment';
 import Web from 'material-ui/svg-icons/av/web';
+import { AuthMiddleware } from '../../store'
+
+
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.AuthReducer.isAuthenticated,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        logout: () => dispatch(AuthMiddleware.logout())
+    };
+}
 
 class Navigation extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
 
+  componentWillReceiveProps(nextProps){
+    setTimeout(()=> {
+      if(!this.props.isAuthenticated){
+        console.log("Logout true");
+          this.context.router.push("/login");
+      }
+    },0);
+  }
+
+  /*
+  handelSignin() {
+    this.props.logout();
+  }*/
   drawerMenu(){
     return (
       <div>
@@ -47,7 +75,7 @@ class Navigation extends Component {
       <div className="navigation-container">
         <MUI.AppBar style={this.props.styles} title="Title"
               onLeftIconButtonTouchTap={this.props.drawerToggle}
-              iconElementRight={<MUI.FlatButton label="Sign out" />}
+              iconElementRight={<MUI.FlatButton label="Sign out" onTouchTap={this.props.logout}/>}
               onRightIconButtonTouchTap={()=>this.context.router.push("/login")}
               />
         <MUI.Drawer open={this.props.drawerOpen} docked={false}
@@ -59,4 +87,4 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation;
+export default connect(mapStateToProps,mapDispatchToProps)(Navigation);
