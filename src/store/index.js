@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 //import { reducer as movies } from './movies';
 import { createStore } from 'redux'
-import MovieReducer from './reducers/movie';
+import AuthReducer from './reducers/authReducer';
 
 
 export const rootReducer = combineReducers({
-    MovieReducer
+    AuthReducer
 // more reducers go here
 })
 

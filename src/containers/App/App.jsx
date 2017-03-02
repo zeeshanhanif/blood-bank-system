@@ -1,19 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component,PropTypes } from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import * as MUI from 'material-ui'
 import AppTheme from '../../app-theme';
 import Navigation from '../Navigation/Navigation'
+import { connect } from 'react-redux';
 
+import AuthActions from '../../store/actions/authActions'
+
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.AuthReducer.isAuthenticated,
+    };
+}
+/*
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchMovie: (id) => dispatch(MovieActions.fetchMovie(id))
+    };
+}
+*/
 
 class App extends Component {
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
   constructor(){
     super();
     
     this.state = {
       drawerOpen : false
     }
+  }
+
+  componentWillMount() {
+    if(this.props.isAuthenticated){
+      console.log("Authenticated");
+    }
+    else {
+      console.log("Not Authenticated");
+      //Uncomment it and it will move to login page if not authenticated
+      //this.context.router.push("/login");
+    }
+    
   }
 
   handleDrawerToggle = () => this.setState({drawerOpen: !this.state.drawerOpen});
@@ -49,4 +79,6 @@ class App extends Component {
   }
 }
 
-export default App;
+//export default App;
+//export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)
