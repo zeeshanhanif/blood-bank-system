@@ -11,6 +11,8 @@ export default class AuthActions {
     static LOGOUT = 'LOGOUT';
     static LOGOUT_SUCCESSFUL = 'LOGOUT_SUCCESSFUL';
 
+    static UPDATE_USER = 'UPDATE_USER';
+
     static ISLOGGEDIN = 'ISLOGGEDIN';
 
     //static NULL = 'NULL';
@@ -72,6 +74,13 @@ export default class AuthActions {
         return {
             type: AuthActions.ISLOGGEDIN,
             payload: user
+        }
+    }
+
+    static updateUser(updatedUser) {
+        return {
+            type: AuthActions.UPDATE_USER,
+            payload: updatedUser
         }
     }
 }

@@ -29,6 +29,8 @@ function AuthReducer(state = INITIAL_STATE, action) {
             return {...state, isProcessing: false, isAuthenticated: false,authUser:{}};
         case AuthActions.ISLOGGEDIN:
             return {...state, isProcessing: false, isAuthenticated: true,authUser:action.payload};
+        case AuthActions.UPDATE_USER:
+            return {...state, isProcessing: false, isAuthenticated: true,authUser: action.payload};
         default:
             return state;
     }

@@ -33,11 +33,8 @@ export default class AuthMiddleware {
         let user = {
             uid: authUser.uid,
             email: credentials.email,
-            fullname:credentials.fullName,
-            isDonor: false,
-            donorDetail:{
-
-            }
+            fullName:credentials.fullName,
+            isDonor: false
         };
         firebase.database().ref('/')
             .child(`users/${user.uid}`)
@@ -110,6 +107,8 @@ export default class AuthMiddleware {
     }
 
     // Logout Functions Ends
+
+    // isLoggedIn 
     static isLoggedIn() {
         return (dispatch) => {
             let user = LocalStorageManager.getUser();
@@ -123,7 +122,21 @@ export default class AuthMiddleware {
         }
     }
 
-    // isLoggedIn 
+    
+
+
+    static updateUser(authUser){
+        return (dispatch) => {
+            firebase.database().ref('/')
+            .child(`users/${authUser.uid}`)
+            .once('value')
+            .then(function (userObj){
+                console.log("user after update ",userObj.val());
+                LocalStorageManager.setUser(userObj.val())
+                dispatch(AuthActions.updateUser(userObj.val()));
+            });           
+        }
+    }
 
     
 }

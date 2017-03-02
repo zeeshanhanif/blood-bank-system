@@ -1,16 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import './Dashboard.css';
-//import * as MUI from 'material-ui'
-//import {Link} from 'react-router';
+import { DonorMiddleware } from '../../store'
+
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.AuthReducer.isAuthenticated,
+        authUser: state.AuthReducer.authUser,
+        donorList: state.DonorReducer.donorList,
+        donorDetail: state.DonorReducer.donorDetail,
+        isDetailUpdated: state.DonorReducer.isDetailUpdated
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        registerDoner: (donorDetail) => dispatch(DonorMiddleware.registerDonor(donorDetail)),
+        getDonorList: (bloodGroup) => dispatch(DonorMiddleware.getDonorList(bloodGroup)),
+        getDonorDetail: (donorId) => dispatch(DonorMiddleware.getDonorDetial(donorId))
+    };
+}
+
 
 class Dashboard extends Component {
   render() {
     return (
-      <div className="dashboard-container">       
-        {this.props.children}
+      <div className="dashboard-container">
+        {React.cloneElement(this.props.children, {...this.props})}
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);
+//export default Dashboard;

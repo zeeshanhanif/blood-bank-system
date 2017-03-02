@@ -12,6 +12,7 @@ import { AuthMiddleware } from '../../store'
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.AuthReducer.isAuthenticated,
+        authUser: state.AuthReducer.authUser
     };
 }
 
@@ -46,7 +47,7 @@ class Navigation extends Component {
             <Avatar src="http://www.material-ui.com/images/uxceo-128.jpg"
                     size={50}
                     className="navigation-icon"/>
-            <span className="navigation-span">Hello World</span>
+            <span className="navigation-span">{this.props.authUser.fullName}</span>
           </div>
           <MUI.MenuItem
               className="navigation-menuItem"
@@ -56,13 +57,13 @@ class Navigation extends Component {
             />
           <MUI.MenuItem
               className="navigation-menuItem"
-              primaryText="Register as Doner"
+              primaryText={this.props.authUser.isDonor?"Update Info":"Register as Doner"} 
               leftIcon={<Web/>}
               containerElement={<Link to="/dashboard/registerDonor"/>}
             />
           <MUI.MenuItem
             className="navigation-menuItem"
-            primaryText="Doners"
+            primaryText="Donors"
             leftIcon={<Web/>}
             containerElement={<Link to="/dashboard/donorlist"/>}
           />
@@ -73,7 +74,7 @@ class Navigation extends Component {
   render() {
     return (
       <div className="navigation-container">
-        <MUI.AppBar style={this.props.styles} title="Title"
+        <MUI.AppBar style={this.props.styles} title="Blood Bank System"
               onLeftIconButtonTouchTap={this.props.drawerToggle}
               iconElementRight={<MUI.FlatButton label="Sign out" onTouchTap={this.props.logout}/>}
               onRightIconButtonTouchTap={()=>this.context.router.push("/login")}
