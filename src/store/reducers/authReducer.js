@@ -10,8 +10,9 @@ function AuthReducer(state = INITIAL_STATE, action) {
     var obj1 = null;
     switch(action.type) {        
         case AuthActions.SIGNUP:
-            obj1 = Object.assign({}, state);
-            return obj1;
+            return {...state, isAuthenticated:true};
+            //obj1 = Object.assign({}, state);
+            //return obj1;
             /*
             return {
                 ...state,

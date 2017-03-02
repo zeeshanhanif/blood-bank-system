@@ -1,9 +1,16 @@
-import { combineReducers } from 'redux';
-//import { reducer as movies } from './movies';
-import { createStore } from 'redux'
+import { combineReducers, applyMiddleware, createStore } from 'redux'
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import AuthReducer from './reducers/authReducer';
 
+import AuthMiddleware from './middleware/authMiddleware'
 
+export {
+    AuthMiddleware
+}
+
+
+const middleware = applyMiddleware(thunk,logger());
 export const rootReducer = combineReducers({
     AuthReducer
 // more reducers go here
@@ -11,5 +18,6 @@ export const rootReducer = combineReducers({
 
 export let store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    middleware
+    //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );

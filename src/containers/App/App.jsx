@@ -41,7 +41,7 @@ class App extends Component {
     else {
       console.log("Not Authenticated");
       //Uncomment it and it will move to login page if not authenticated
-      //this.context.router.push("/login");
+      this.context.router.push("/login");
     }
     
   }

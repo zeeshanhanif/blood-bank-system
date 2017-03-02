@@ -9,7 +9,7 @@ export default class AuthActions {
     static SIGNIN_REJECTED = 'SIGNIN_REJECTED';
 
     
-    static singup(movies) {
+    static singup() {
         return {
             type: AuthActions.SIGNUP
         }
@@ -29,7 +29,7 @@ export default class AuthActions {
     }
 
 
-    static signin(movies) {
+    static signin() {
         return {
             type: AuthActions.SIGNIN
         }
