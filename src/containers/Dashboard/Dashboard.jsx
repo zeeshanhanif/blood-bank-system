@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Dashboard.css';
 import { DonorMiddleware } from '../../store'
@@ -26,7 +26,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard-container">
-        {React.cloneElement(this.props.children, {...this.props})}
+        {this.props.children?React.cloneElement(this.props.children, {...this.props}):this.props.children}
       </div>
     );
   }

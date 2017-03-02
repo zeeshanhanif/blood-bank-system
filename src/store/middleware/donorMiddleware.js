@@ -1,5 +1,4 @@
 import DonorActions from "./../actions/donorActions";
-import AuthActions from "./../actions/authActions";
 import AuthMiddleware from "./authMiddleware";
 import * as firebase from 'firebase';
 

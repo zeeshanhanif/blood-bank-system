@@ -73,7 +73,6 @@ class RegisterDonor extends Component {
   }
 
   render() {
-    const {authUser} = this.props;
     return (
       <div style={styles.registerDonorContainer}>
         <MUI.Paper style={styles.paper}>
