@@ -1,4 +1,4 @@
-import { combineReducers, applyMiddleware, createStore } from 'redux'
+import { combineReducers, applyMiddleware, createStore, compose } from 'redux'
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import AuthReducer from './reducers/authReducer';
@@ -13,7 +13,11 @@ export {
 }
 
 
-const middleware = applyMiddleware(thunk,logger());
+//const middleware = applyMiddleware(thunk,logger());
+const middleware = compose(
+      applyMiddleware(thunk,logger()),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
 export const rootReducer = combineReducers({
     AuthReducer,
     DonorReducer
@@ -24,4 +28,4 @@ export let store = createStore(
     rootReducer,
     middleware
     //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    );
+);
